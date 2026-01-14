@@ -217,9 +217,7 @@ export default function Portfolio() {
 
             {/* Main Heading */}
             <h1 className="text-6xl md:text-7xl font-black leading-tight mb-8 tracking-tight">
-              Frontend &<br />
-              Blockchain
-              <br />
+              Frontend<br />
               Developer.
             </h1>
 
