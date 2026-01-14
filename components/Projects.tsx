@@ -35,27 +35,28 @@ const projects: Project[] = [
     githubUrl: "https://github.com/yourusername/todocli",
   },
   {
-    title: "Lumen-by-RJDP",
+    title: "Gemini-clone",
     description:
-      "A beautiful and modern web application with stunning UI and smooth animations",
-    tags: ["HTML", "CSS", "JavaScript", "GSAP"],
-    githubUrl: "https://github.com/yourusername/lumen-by-rjdp",
-    liveUrl: "https://lumen.example.com",
+      "A recreation of google Gemini interface, using the correct API",
+    tags: ["HTML", "JavaScript", "TypeScript", "Tailwind CSS"],
+    githubUrl: "https://github.com/Chinonyerem661/gemini-clone",
+    liveUrl: "https://gemini-clone-xd.netlify.app/",
   },
   {
-    title: "EV-Adoption-Forecasting",
+    title: "StreamFI",
     description:
-      "ML-powered forecasting system to predict electric vehicle adoption trends using advanced analytics",
+      "Landing page for blockchain-powered Streaming site for creators to stream their games, movies, videos",
     tags: ["Python", "Streamlit", "Pandas", "Scikit-learn"],
-    githubUrl: "https://github.com/yourusername/ev-adoption-forecasting",
-    liveUrl: "https://ev-forecasting.example.com",
+    githubUrl: "https://github.com/Chinonyerem661/streamfi-community",
+    liveUrl: "https://streamfi-landing-test-build.netlify.app/",
   },
   {
-    title: "GitSensei",
+    title: "Shramp NFT",
     description:
-      "AI-powered Git assistant to help you with Git commands, best practices, and workflows",
-    tags: ["Python", "OpenAI", "Git"],
-    githubUrl: "https://github.com/yourusername/gitsensei",
+      "Functional mint page and smart contract for an NFT project minting on Monad tectnet blockchain",
+    tags: ["Hardhat", "Solidity", "Ether.js", "Tailwind CSS", "JavaScript"],
+    githubUrl: "https://github.com/Chinonyerem661/shramp-nft",
+    liveUrl: "https://shramp-nft.vercel.app/",
   },
 ];
 
@@ -104,7 +105,7 @@ export default function Projects() {
               </h3>
 
               {/* Description */}
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-white text-sm mb-4 leading-relaxed">
                 {project.description}
               </p>
 
@@ -150,7 +151,7 @@ export default function Projects() {
         {/* View All Button */}
         <div className="flex justify-center">
           <a
-            href="https://github.com/yourusername"
+            href="https://github.com/Chinonyerem661?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition flex items-center gap-2"

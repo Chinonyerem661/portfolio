@@ -155,7 +155,7 @@ export default function Portfolio() {
               {/* Social Icons */}
               <div className="flex gap-4 text-gray-600 dark:text-gray-400">
                 <a 
-                  href="https://twitter.com/yourusername" 
+                  href=" " 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:opacity-70 transition"
@@ -236,15 +236,16 @@ export default function Portfolio() {
             </p>
 
             {/* CTA Button */}
-            <button
-              className={`px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-lg ${
+            <a
+              href="#projects"
+              className={`px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-lg inline-block ${
                 isDark
                   ? "bg-white text-gray-900 hover:bg-gray-100"
                   : "bg-gray-900 text-white hover:bg-gray-800"
               }`}
             >
               View My Work →
-            </button>
+            </a>
 
             {/* Decorative Dot */}
             <div
