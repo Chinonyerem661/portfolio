@@ -20,13 +20,13 @@ export default function Footer() {
 
           {/* Right Side - Social Links */}
           <div className="flex items-center gap-6">
-            <a
+            {/* <a
               href="#"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               title="Dribbble"
             >
               <Dribbble size={24} className="text-gray-700 dark:text-gray-300" />
-            </a>
+            </a> */}
             <a
               href="#"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
@@ -41,15 +41,15 @@ export default function Footer() {
             >
               <Twitter size={24} className="text-gray-700 dark:text-gray-300" />
             </a>
-            <a
+            {/* <a
               href="#"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               title="Discord"
             >
               <Dribbble size={24} className="text-gray-700 dark:text-gray-300" />
-            </a>
+            </a> */}
             <a
-              href="#"
+              href="mailto:kezienonye@gmail.com"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               title="Email"
             >

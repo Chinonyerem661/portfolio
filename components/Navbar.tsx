@@ -196,9 +196,14 @@ export default function Portfolio() {
               </button>
 
               {/* Resume Button */}
-              <button className="px-6 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition">
+              <a
+                href="https://drive.google.com/file/d/1-idjrj-tbml9mp5WZcuxyOnKRSPnuLmq/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition"
+              >
                 Resume
-              </button>
+              </a>
             </div>
           </nav>
         </header>
