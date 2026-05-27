@@ -10,11 +10,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           {/* Left Side */}
           <div>
-            <h2 className="text-4xl md:text-5xl font-black mb-3 dark:text-white">
-              Lets Connect
+            <h2 className="text-4xl md:text-5xl font-black mb-3 dark:text-white text-gray-900">
+              Let's Connect
             </h2>
-            <p className="text-gray-600 dark:text-gray-400 text-lg">
-              Have a project in mind? Lets build something amazing together.
+            <p className="text-gray-600 dark:text-gray-200 text-lg">
+              Have a project in mind? Let's build something amazing together.
             </p>
           </div>
 
@@ -28,7 +28,18 @@ export default function Footer() {
               <Dribbble size={24} className="text-gray-700 dark:text-gray-300" />
             </a> */}
             <a
-              href="#"
+              href="https://github.com/Chinonyerem661"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              title="GitHub"
+            >
+              <Github size={24} className="text-gray-700 dark:text-gray-300" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/ekezie-chinonyerem/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               title="LinkedIn"
             >
@@ -41,13 +52,6 @@ export default function Footer() {
             >
               <Twitter size={24} className="text-gray-700 dark:text-gray-300" />
             </a>
-            {/* <a
-              href="#"
-              className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-              title="Discord"
-            >
-              <Dribbble size={24} className="text-gray-700 dark:text-gray-300" />
-            </a> */}
             <a
               href="mailto:kezienonye@gmail.com"
               className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition"
@@ -64,9 +68,9 @@ export default function Footer() {
 
       {/* Copyright Section */}
       <div className="max-w-7xl mx-auto px-6 py-8 text-center">
-        <p className="text-gray-600 dark:text-gray-400 text-sm">
+        <p className="text-gray-600 dark:text-gray-300 text-sm">
           Designed & Built{" "}
-          <span className="text-red-500">❤️</span> by Ekezie Emmanuel Chinonyerem © 2025
+          <span className="text-red-500">❤️</span> by Ekezie Emmanuel Chinonyerem © {new Date().getFullYear()}
         </p>
       </div>
     </footer>

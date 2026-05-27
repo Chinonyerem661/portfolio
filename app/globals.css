@@ -2,6 +2,8 @@
 @import "tailwindcss/theme";
 @import "tailwindcss/utilities";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ---------- GLOBAL STYLES ---------- */
 
 /* Smooth scrolling for navbar anchor links */
@@ -70,3 +72,24 @@ html.dark .card {
 html.dark .card-accent {
   background-image: none;
 }
+
+/* ---------- MARQUEE ANIMATION ---------- */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+

@@ -15,7 +15,7 @@ export default function About() {
         </div>
 
         {/* Section Title */}
-        <h2 className="text-5xl md:text-6xl font-black text-center mb-4 dark:text-white">
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-4 dark:text-white text-gray-900">
           About Me
         </h2>
 
@@ -43,24 +43,24 @@ export default function About() {
               </div>
 
               {/* Terminal Content */}
-              <div className="p-6 font-mono text-sm text-gray-300 space-y-4 bg-gradient-to-b from-gray-900 to-gray-950">
+              <div className="p-6 font-mono text-sm text-gray-100 space-y-4 bg-gradient-to-b from-gray-900 to-gray-950">
                 <div>
                   <span className="text-cyan-400">Chinonyerem@portfolio:~$</span>
                   <span className="text-gray-400 ml-2">cat about.txt</span>
                 </div>
 
                 <div className="text-green-400 space-y-3">
-                  <p>Hi, Im Ekezie Emmanuel Chinonyerem 👋</p>
-                  <p>Frontend Web Developer </p>
+                  <p>Hi, I'm Ekezie Emmanuel Chinonyerem 👋</p>
+                  <p>Frontend Web Developer</p>
                 </div>
 
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-200 leading-relaxed">
                   Passionate about bridging creativity and functionality. I
                   design and build modern, responsive, and scalable web
                   applications from the ground up.
                 </p>
 
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-200 leading-relaxed">
                   With a solid foundation in front-end
                   development, I specialize in delivering clean code, seamless
                   user experiences, and production-ready solutions. My expertise
@@ -68,10 +68,10 @@ export default function About() {
                   technologies like Ethereum and Solana.
                 </p>
 
-                <p className="text-gray-300 leading-relaxed">
+                <p className="text-gray-200 leading-relaxed">
                   I am driven by the thrill of building real-world projects,
                   constantly learning emerging technologies, and contributing to
-                  impactful digital experiences. Whether its a real time chat
+                  impactful digital experiences. Whether it's a real-time chat
                   app, an e-commerce platform, or a decentralized application
                   (dApp), I love turning ideas into reliable products.
                 </p>

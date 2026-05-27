@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Github, Linkedin, Twitter, Moon, Sun } from "lucide-react";
+import { Github, Linkedin, Twitter, Moon, Sun, Menu, X, Mail } from "lucide-react";
 
 export default function Portfolio() {
   const [isDark, setIsDark] = useState(false);
   const [active, setActive] = useState<string>("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleScroll = () => {
     const sections = [
@@ -68,11 +69,11 @@ export default function Portfolio() {
         >
           <nav className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
             {/* Logo */}
-            <div className="font-bold text-lg tracking-tight">Ekezie C.</div>
+            <div className="font-bold text-lg tracking-tight whitespace-nowrap">Ekezie C.</div>
 
-            {/* Nav Links */}
+            {/* Desktop Nav Links */}
             <div
-              className={`flex gap-8 text-sm font-medium ${
+              className={`hidden md:flex gap-8 text-sm font-medium ${
                 isDark ? "text-gray-400" : "text-gray-600"
               }`}
             >
@@ -100,18 +101,6 @@ export default function Portfolio() {
               >
                 Projects
               </a>
-              {/* <a
-                href="#articles"
-                className={
-                  active === "articles"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                Articles
-              </a> */}
               <a
                 href="#experience"
                 className={
@@ -124,18 +113,6 @@ export default function Portfolio() {
               >
                 Experience
               </a>
-              {/* <a
-                href="#activity"
-                className={
-                  active === "activity"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                Activity
-              </a> */}
               <a
                 href="#skills"
                 className={
@@ -150,14 +127,12 @@ export default function Portfolio() {
               </a>
             </div>
 
-            {/* Right Section */}
-            <div className="flex items-center gap-4">
+            {/* Desktop Right Section */}
+            <div className="hidden md:flex items-center gap-4">
               {/* Social Icons */}
               <div className="flex gap-4 text-gray-600 dark:text-gray-400">
                 <a 
-                  href=" " 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#" 
                   className="hover:opacity-70 transition"
                   aria-label="Twitter"
                 >
@@ -191,6 +166,7 @@ export default function Portfolio() {
                     ? "bg-gray-800 text-yellow-400"
                     : "bg-gray-100 text-gray-600"
                 }`}
+                aria-label="Toggle Theme"
               >
                 {isDark ? <Sun size={20} /> : <Moon size={20} />}
               </button>
@@ -205,7 +181,140 @@ export default function Portfolio() {
                 Resume
               </a>
             </div>
+
+            {/* Mobile Header Options */}
+            <div className="flex md:hidden items-center gap-2">
+              {/* Mobile Theme Toggle */}
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className={`p-2 rounded-full transition-colors ${
+                  isDark
+                    ? "bg-gray-800 text-yellow-400"
+                    : "bg-gray-100 text-gray-600"
+                }`}
+                aria-label="Toggle Theme"
+              >
+                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+              </button>
+
+              {/* Mobile Hamburger Trigger */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className={`p-2 rounded-lg transition-colors ${
+                  isDark
+                    ? "text-gray-300 hover:bg-gray-800"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+                aria-label="Toggle Menu"
+              >
+                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </nav>
+
+          {/* Mobile Drawer Menu */}
+          {isMenuOpen && (
+            <div className="md:hidden fixed top-[60px] left-0 w-full h-[calc(100vh-60px)] z-40 bg-white dark:bg-gray-950 transition-all duration-300 border-t border-gray-100 dark:border-gray-800 overflow-y-auto">
+              <div className="flex flex-col items-center gap-6 py-12 px-6">
+                {/* Mobile Nav Links */}
+                <div className="flex flex-col items-center gap-6 text-lg font-semibold w-full">
+                  <a
+                    href="#about"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
+                      active === "about"
+                        ? "text-cyan-500 font-bold"
+                        : isDark
+                        ? "text-gray-300"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    About
+                  </a>
+                  <a
+                    href="#projects"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
+                      active === "projects"
+                        ? "text-cyan-500 font-bold"
+                        : isDark
+                        ? "text-gray-300"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    Projects
+                  </a>
+                  <a
+                    href="#experience"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
+                      active === "experience"
+                        ? "text-cyan-500 font-bold"
+                        : isDark
+                        ? "text-gray-300"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    Experience
+                  </a>
+                  <a
+                    href="#skills"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
+                      active === "skills"
+                        ? "text-cyan-500 font-bold"
+                        : isDark
+                        ? "text-gray-300"
+                        : "text-gray-600"
+                    }`}
+                  >
+                    Skills
+                  </a>
+                </div>
+
+                <div className="w-full h-[1px] bg-gray-200 dark:bg-gray-800 my-4"></div>
+
+                {/* Mobile Social Links */}
+                <div className="flex gap-6 text-gray-600 dark:text-gray-400">
+                  <a
+                    href="https://github.com/Chinonyerem661"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
+                    aria-label="GitHub"
+                  >
+                    <Github size={22} />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/ekezie-chinonyerem/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
+                    aria-label="LinkedIn"
+                  >
+                    <Linkedin size={22} />
+                  </a>
+                  <a
+                    href="mailto:kezienonye@gmail.com"
+                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
+                    aria-label="Email"
+                  >
+                    <Mail size={22} />
+                  </a>
+                </div>
+
+                {/* Mobile Resume Button */}
+                <a
+                  href="https://drive.google.com/file/d/1-idjrj-tbml9mp5WZcuxyOnKRSPnuLmq/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full max-w-xs text-center py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition mt-4"
+                >
+                  Resume
+                </a>
+              </div>
+            </div>
+          )}
         </header>
 
         {/* Hero Section */}
@@ -221,7 +330,7 @@ export default function Portfolio() {
             </div>
 
             {/* Main Heading */}
-            <h1 className="text-6xl md:text-7xl font-black leading-tight mb-8 tracking-tight">
+            <h1 className="text-6xl md:text-7xl font-black leading-tight mb-8 tracking-tight text-gray-900 dark:text-white">
               Frontend<br />
               Developer.
             </h1>
@@ -229,7 +338,7 @@ export default function Portfolio() {
             {/* Subheading */}
             <p
               className={`text-lg md:text-xl mb-12 leading-relaxed ${
-                isDark ? "text-gray-400" : "text-gray-600"
+                isDark ? "text-gray-200" : "text-gray-600"
               }`}
             >
               I design and build modern, responsive, and scalable web

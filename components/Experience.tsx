@@ -106,7 +106,7 @@ const experiences: Experience[] = [
   //     "Responsive Design",
   //     "Team Collaboration",
   //   ],
-  //   icon: "�",
+  //   icon: "🎓",
   // },
 ];
 
@@ -122,7 +122,7 @@ export default function Experience() {
         </div>
 
         {/* Section Title */}
-        <h2 className="text-5xl md:text-6xl font-black text-center mb-4 dark:text-white">
+        <h2 className="text-4xl md:text-6xl font-black text-center mb-4 dark:text-white text-gray-900">
           Experience
         </h2>
 
@@ -141,7 +141,7 @@ export default function Experience() {
               {/* Card Content */}
               <div className="p-8">
                 {/* Header with Icon */}
-                <div className="flex items-start gap-4 mb-6">
+                <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
                   {/* Icon */}
                   <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">
                     {exp.icon}
@@ -154,7 +154,7 @@ export default function Experience() {
                     </h3>
 
                     {/* Location and Duration */}
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
                       <div className="flex items-center gap-1">
                         <MapPin size={16} className="text-cyan-500" />
                         {exp.location}
@@ -168,7 +168,7 @@ export default function Experience() {
                 </div>
 
                 {/* Description */}
-                <p className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
                   {exp.description}
                 </p>
 
@@ -180,7 +180,7 @@ export default function Experience() {
                         size={20}
                         className="text-cyan-500 flex-shrink-0 mt-0.5"
                       />
-                      <span className="text-gray-700 dark:text-gray-300">
+                      <span className="text-gray-700 dark:text-gray-200">
                         {highlight}
                       </span>
                     </div>

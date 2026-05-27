@@ -4,6 +4,15 @@ import { useEffect } from "react";
 
 export default function CursorDot() {
   useEffect(() => {
+    // Detect touch screens or mobile viewports
+    const isTouchDevice =
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window ||
+        navigator.maxTouchPoints > 0 ||
+        (window.matchMedia && window.matchMedia("(pointer: coarse)").matches));
+
+    if (isTouchDevice) return;
+
     // Create custom cursor dot
     const dot = document.createElement("div");
     dot.id = "custom-cursor-dot";

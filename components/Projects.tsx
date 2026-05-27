@@ -6,7 +6,7 @@ interface Project {
   title: string;
   description: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl?: string;
   liveUrl?: string;
 }
 
@@ -15,29 +15,29 @@ const projects: Project[] = [
     title: "CINEMIX",
     description:
       "A modern and responsive web application for discovering movies, exploring popular titles, and checking movie details built using React and TMDb (The Movie Database) API.",
-    tags: ["React", "JavaScript", "Tailind CSS", "TMDb API"],
+    tags: ["React", "JavaScript", "Tailwind CSS", "TMDb API"],
     githubUrl: "https://github.com/Chinonyerem661/Movies-site",
     liveUrl: "https://chinonyerem661.github.io/Movies-site/",
   },
   {
     title: "Krea-AI",
     description:
-      "A pixel perfect recreation of Krea AI interface, built with Next.js adn Typescript",
+      "A pixel perfect recreation of Krea AI interface, built with Next.js and TypeScript",
     tags: ["Next.js", "Tailwind CSS", "Typescript"],
     githubUrl: "https://github.com/Chinonyerem661/krea-ai-frontend",
     liveUrl: "https://cartolinks-krea-ai-frontend-submit.netlify.app/",
   },
   {
-    title: "TodoCLI",
+    title: "Routelink VAS",
     description:
-      "A powerful command-line task management tool with features like priorities, due dates, and categories",
-    tags: ["Node.js", "Commander.js", "Chalk"],
-    githubUrl: "https://github.com/yourusername/todocli",
+      "A licensed Value Added Services (VAS) provider authorized by the NCC to deliver innovative digital content services and carrier billing integrations across Nigeria's mobile networks.",
+    tags: ["Next.js", "Tailwind CSS", "API Integration"],
+    liveUrl: "https://routelink-vas.vercel.app/",
   },
   {
     title: "Gemini-clone",
     description:
-      "A recreation of google Gemini interface, using the correct API",
+      "A recreation of Google Gemini interface, using the correct API",
     tags: ["HTML", "JavaScript", "TypeScript", "Tailwind CSS"],
     githubUrl: "https://github.com/Chinonyerem661/gemini-clone",
     liveUrl: "https://gemini-clone-xd.netlify.app/",
@@ -53,7 +53,7 @@ const projects: Project[] = [
   {
     title: "Shramp NFT",
     description:
-      "Functional mint page and smart contract for an NFT project minting on Monad tectnet blockchain",
+      "Functional mint page and smart contract for an NFT project minting on Monad testnet blockchain",
     tags: ["Hardhat", "Solidity", "Ether.js", "Tailwind CSS", "JavaScript"],
     githubUrl: "https://github.com/Chinonyerem661/shramp-nft",
     liveUrl: "https://shramp-nft.vercel.app/",
@@ -73,7 +73,7 @@ export default function Projects() {
         </div>
 
         {/* Section Title */}
-        <h2 className="flex justify-center text-5xl md:text-6xl font-black mb-4 dark:text-white text-gray-900">
+        <h2 className="flex justify-center text-4xl md:text-6xl font-black mb-4 dark:text-white text-gray-900 text-center">
           Featured Projects
         </h2>
 
@@ -123,15 +123,17 @@ export default function Projects() {
 
               {/* Buttons */}
               <div className="flex gap-3">
-                <a
-                  href={project.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 py-2 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition"
-                >
-                  <Code2 size={16} />
-                  Code
-                </a>
+                {project.githubUrl && (
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 py-2 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition"
+                  >
+                    <Code2 size={16} />
+                    Code
+                  </a>
+                )}
                 {project.liveUrl && (
                   <a
                     href={project.liveUrl}
