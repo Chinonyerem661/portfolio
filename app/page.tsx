@@ -1,36 +1,35 @@
-// app/page.tsx
 "use client";
 
-import Navbar from "../components/Navbar";
+import dynamic from "next/dynamic";
+import CursorDot from "@/components/CursorDot";
+import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Footer from "@/components/Footer";
-import CursorDot from "@/components/CursorDot";
-import Skills from "@/components/Skills";
+import ThemeProvider from "@/components/ThemeProvider";
+import BackgroundGradient from "@/components/BackgroundGradient";
+
+// Below-the-fold sections are code-split into separate chunks so the
+// above-the-fold JS (Navbar/Hero/About) parses and hydrates first.
+// SSR stays on (next/dynamic default) so content is still crawlable.
+const Projects = dynamic(() => import("@/components/Projects"));
+const Experience = dynamic(() => import("@/components/Experience"));
+const Skills = dynamic(() => import("@/components/Skills"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function HomePage() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden">
-      <CursorDot />
-      <Navbar />
-      {/* <section id="home">
+    <ThemeProvider>
+      <main className="relative min-h-screen overflow-x-hidden text-black dark:text-[#f5f5f5] transition-colors duration-500">
+        <BackgroundGradient />
+        <CursorDot />
+        <Navbar />
         <Hero />
-      </section> */}
-      <section id="about">
         <About />
-      </section>
-      <section id="projects">
         <Projects />
-      </section>
-      <section id="experience">
         <Experience />
-      </section>
-      <section id="skills">
         <Skills />
-      </section>
-      <Footer />
-    </main>
+        <Footer />
+      </main>
+    </ThemeProvider>
   );
 }

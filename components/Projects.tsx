@@ -1,166 +1,176 @@
 "use client";
 
-import { Code2, ExternalLink } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Magnetic from "./Magnetic";
 
 interface Project {
   title: string;
+  category: string;
   description: string;
   tags: string[];
-  githubUrl?: string;
   liveUrl?: string;
+  image: string;
 }
 
-const projects: Project[] = [
+const projectsData: Project[] = [
   {
-    title: "CINEMIX",
+    title: "Pneumabreed International Academy",
+    category: "Frontend",
     description:
-      "A modern and responsive web application for discovering movies, exploring popular titles, and checking movie details built using React and TMDb (The Movie Database) API.",
-    tags: ["React", "JavaScript", "Tailwind CSS", "TMDb API"],
-    githubUrl: "https://github.com/Chinonyerem661/Movies-site",
-    liveUrl: "https://chinonyerem661.github.io/Movies-site/",
+      "Digital presence for a Christian private school in Port Harcourt — clean information architecture and admissions content built for parents and prospective students.",
+    tags: ["React", "Vite", "React Router", "Tailwind CSS"],
+    liveUrl: "https://pneumabreed-academy.vercel.app/",
+    image: "/project-pneumabreed.webp",
   },
   {
-    title: "Krea-AI",
+    title: "CINEMIX",
+    category: "Frontend",
     description:
-      "A pixel perfect recreation of Krea AI interface, built with Next.js and TypeScript",
-    tags: ["Next.js", "Tailwind CSS", "Typescript"],
-    githubUrl: "https://github.com/Chinonyerem661/krea-ai-frontend",
-    liveUrl: "https://cartolinks-krea-ai-frontend-submit.netlify.app/",
+      "A modern movie discovery application with responsive grid layouts, search functionality, and real-time data from the TMDb API.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "TMDb API"],
+    liveUrl: "https://chinonyerem661.github.io/Movies-site/",
+    image: "/project-cinemix.webp",
   },
   {
     title: "Routelink VAS",
+    category: "Full Stack",
     description:
-      "A licensed Value Added Services (VAS) provider authorized by the NCC to deliver innovative digital content services and carrier billing integrations across Nigeria's mobile networks.",
-    tags: ["Next.js", "Tailwind CSS", "API Integration"],
+      "Enterprise Value Added Services portal delivering billing integrations and carrier services for mobile networks across Nigeria.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "REST API"],
     liveUrl: "https://routelink-vas.vercel.app/",
+    image: "/project-routelink.webp",
   },
   {
-    title: "Gemini-clone",
+    title: "Crafwell Engineering",
+    category: "Frontend",
     description:
-      "A recreation of Google Gemini interface, using the correct API",
-    tags: ["HTML", "JavaScript", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/Chinonyerem661/gemini-clone",
-    liveUrl: "https://gemini-clone-xd.netlify.app/",
+      "Site for an API-certified precision machining and fabrication company serving the oil & gas sector in Port Harcourt, built to communicate technical credibility.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    liveUrl: "https://www.crafwellengineering.com/",
+    image: "/project-crafwell.webp",
   },
   {
-    title: "StreamFI",
+    title: "Beate Synergy",
+    category: "Frontend",
     description:
-      "Landing page for blockchain-powered Streaming site for creators to stream their games, movies, videos",
-    tags: ["Python", "Streamlit", "Pandas", "Scikit-learn"],
-    githubUrl: "https://github.com/Chinonyerem661/streamfi-community",
-    liveUrl: "https://streamfi-landing-test-build.netlify.app/",
+      "Corporate site for an oil & gas engineering and technical services firm in Lagos, presenting capabilities with a precise, industrial visual language.",
+    tags: ["React", "Vite", "Framer Motion", "Tailwind CSS"],
+    liveUrl: "https://beatesynergy.com/",
+    image: "/project-beatesynergy.webp",
   },
   {
-    title: "Shramp NFT",
+    title: "RoutePay",
+    category: "Full Stack",
     description:
-      "Functional mint page and smart contract for an NFT project minting on Monad testnet blockchain",
-    tags: ["Hardhat", "Solidity", "Ether.js", "Tailwind CSS", "JavaScript"],
-    githubUrl: "https://github.com/Chinonyerem661/shramp-nft",
-    liveUrl: "https://shramp-nft.vercel.app/",
+      "A Nigerian fintech platform for payments, bill settlement, and micro-lending, built for clarity, trust, and fast, reliable transaction flows.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    liveUrl: "https://routepay.com/",
+    image: "/project-routepay.webp",
   },
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="projects" className="py-32 md:py-48 px-6 md:px-20">
+      <div className="max-w-[1600px] mx-auto">
         {/* Section Label */}
-        <div className="flex justify-center relative mb-4">
-          <span className="absolute -left-8 top-0 w-2 h-2 bg-red-500 rounded-full"></span>
-          <p className="text-cyan-500 font-semibold text-sm tracking-widest uppercase">
-            Portfolio
-          </p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-4 mb-16 md:mb-24"
+        >
+          <span className="text-xs font-medium text-[#888] uppercase tracking-[0.2em]">
+            Selected Work
+          </span>
+          <span className="flex-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
+        </motion.div>
 
         {/* Section Title */}
-        <h2 className="flex justify-center text-4xl md:text-6xl font-black mb-4 dark:text-white text-gray-900 text-center">
-          Featured Projects
-        </h2>
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="font-display text-[clamp(2.5rem,5vw,6rem)] font-bold leading-[1] tracking-tight text-black dark:text-[#f5f5f5] mb-16 md:mb-24"
+        >
+          Featured
+          <br />
+          <span className="text-[#888]">Projects</span>
+        </motion.h2>
 
-        {/* Underline */}
-        <div className="flex justify-center mb-12">
-          <div className="w-16 h-1 bg-cyan-500 rounded-full"></div>
-        </div>
-
-        {/* Projects Grid - 2 rows of 3 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {projects.map((project, i) => (
-            <div
-              key={i}
-              className="card card-accent rounded-lg transition-all duration-300 p-6"
+        {/* Projects Grid — 2 col staggered */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 md:gap-x-12 gap-y-16 md:gap-y-24">
+          {projectsData.map((project, index) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{
+                duration: 0.7,
+                delay: index % 2 === 0 ? 0 : 0.15,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={index % 2 !== 0 ? "md:mt-24" : ""}
             >
-              {/* Icon */}
-              <div className="mb-4">
-                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
-                  <Code2
-                    size={20}
-                    className="text-blue-600 dark:text-blue-400"
-                  />
+              {/* Image Container — fixed aspect ratio, no fill prop */}
+              <div
+                className="relative w-full overflow-hidden rounded-2xl bg-[#f5f5f5] dark:bg-[#141414] group cursor-pointer"
+                style={{ aspectRatio: "4 / 3" }}
+                data-cursor-text="VIEW"
+              >
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  width={800}
+                  height={600}
+                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+
+              {/* Caption */}
+              <div className="mt-6 md:mt-8">
+                <div className="flex items-baseline justify-between gap-4 mb-2">
+                  <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight text-black dark:text-[#f5f5f5]">
+                    {project.title}
+                  </h3>
+                  <span className="text-xs text-[#888] font-medium uppercase tracking-wider flex-shrink-0">
+                    {project.category}
+                  </span>
+                </div>
+
+                <p className="text-sm text-[#888] leading-relaxed mb-4 max-w-lg">
+                  {project.description}
+                </p>
+
+                {/* Tags as inline text */}
+                <p className="text-[11px] text-[#aaa] font-medium uppercase tracking-wider mb-5">
+                  {project.tags.join(" · ")}
+                </p>
+
+                {/* Links */}
+                <div className="flex items-center gap-6">
+                  {project.liveUrl && (
+                    <Magnetic strength={0.15}>
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link-underline text-sm font-medium text-black dark:text-[#f5f5f5] hover:text-accent no-underline transition-colors"
+                        data-cursor-text="LIVE"
+                      >
+                        Live Demo →
+                      </a>
+                    </Magnetic>
+                  )}
                 </div>
               </div>
-
-              {/* Title */}
-              <h3 className="text-xl font-bold mb-3 dark:text-white text-gray-900">
-                {project.title}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-600 dark:text-white text-sm mb-4 leading-relaxed">
-                {project.description}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-3 py-1 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-xs font-semibold rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Buttons */}
-              <div className="flex gap-3">
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 py-2 rounded-lg font-semibold hover:bg-gray-800 dark:hover:bg-gray-200 transition"
-                  >
-                    <Code2 size={16} />
-                    Code
-                  </a>
-                )}
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-2 bg-cyan-500 text-white py-2 rounded-lg font-semibold hover:bg-cyan-600 transition"
-                  >
-                    <ExternalLink size={16} />
-                    Live
-                  </a>
-                )}
-              </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
-        {/* View All Button */}
-        <div className="flex justify-center">
-          <a
-            href="https://github.com/Chinonyerem661?tab=repositories"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition flex items-center gap-2"
-          >
-            View All Repositories
-            <ExternalLink size={18} />
-          </a>
         </div>
       </div>
     </section>

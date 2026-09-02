@@ -1,8 +1,17 @@
 "use client";
 
-import { MapPin, Calendar, CheckCircle, Lightbulb } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Puzzle,
+  Users,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
-interface Experience {
+interface ExperienceItem {
   title: string;
   company: string;
   duration: string;
@@ -10,23 +19,22 @@ interface Experience {
   description: string;
   highlights: string[];
   skills: string[];
-  icon: string;
 }
 
-const experiences: Experience[] = [
+const experiences: ExperienceItem[] = [
   {
-    title: "Frontend Developer",
+    title: "Software Developer & Intern Team Lead",
     company: "Oud Technologies",
-    duration: "Oct 2024 - Present",
+    duration: "Oct 2024 – Present",
     location: "Remote",
     description:
-      "Leading a team of frontend interns while delivering production-ready web applications. Serving as the primary liaison between the intern team and core development team, coordinating workflows and ensuring quality standards across all deliverables.",
+      "Leading a team of interns while delivering production-grade web applications. Serving as the primary liaison between design, backend, and intern teams to ensure consistent quality.",
     highlights: [
-      "Develop responsive dashboards and user interfaces with React, TypeScript, Next.js, and Tailwind CSS, utilizing Zustand and Redux for state management.",
-      "Conduct code reviews, provide technical guidance, and manage task assignments for the intern team.",
-      "Build reusable component libraries and implement design systems for consistency across applications.",
-      "Integrate REST APIs and collaborate with backend teams to deliver seamless full-stack solutions.",
-      "Review pull requests and enforce coding standards using Git workflows and best practices.",
+      "Architected responsive dashboards using React, TypeScript, Next.js, and Tailwind CSS.",
+      "Managed state with Zustand and Redux Toolkit for complex application data flows.",
+      "Conducted weekly code reviews, mentorship sessions, and managed PR workflows.",
+      "Built reusable component libraries and design systems for multi-product consistency.",
+      "Integrated REST APIs and collaborated with backend teams for seamless data pipelines.",
     ],
     skills: [
       "React",
@@ -38,181 +46,297 @@ const experiences: Experience[] = [
       "REST APIs",
       "Git",
     ],
-    icon: "💼",
   },
-  // {
-  //   title: "Junior Web Developer",
-  //   company: "Dev Hq",
-  //   duration: "Jan 2025 - Sep 2025",
-  //   location: "Remote",
-  //   description:
-  //     "Developed responsive web interfaces for multiple products using modern frontend technologies, focusing on user experience and seamless cross-device functionality.",
-  //   highlights: [
-  //     "Developed responsive landing page and settings interface for StreamFi product using React.js, Next.js, and Tailwind CSS with TypeScript.",
-  //     "Built user authentication interface for Nourify product, ensuring seamless user experience across devices.",
-  //     "Collaborated with the development team via GitHub to resolve UI issues and contribute to codebase maintenance.",
-  //     "Implemented modern frontend technologies including React hooks and component-based architecture.",
-  //   ],
-  //   skills: [
-  //     "React.js",
-  //     "Next.js",
-  //     "TypeScript",
-  //     "Tailwind CSS",
-  //     "GitHub",
-  //     "Responsive Design",
-  //   ],
-  //   icon: "🚀",
-  // },
-  // {
-  //   title: "Intern",
-  //   company: "DopaStak",
-  //   duration: "May 2024 - Oct 2024",
-  //   location: "Remote",
-  //   description:
-  //     "Contributed to development and maintenance of web applications at a dynamic software development company focused on creating scalable web applications and digital solutions.",
-  //   highlights: [
-  //     "Collaborated with senior developers to design and implement backend features using JavaScript, Python, and PHP.",
-  //     "Participated in web application optimization initiatives focused on improving speed and scalability performance.",
-  //     "Ensured seamless operation of web applications through code reviews, testing, and collaborative problem-solving.",
-  //     "Engaged in continuous learning to stay current with latest technologies and best practices.",
-  //   ],
-  //   skills: [
-  //     "JavaScript",
-  //     "Python",
-  //     "PHP",
-  //     "Web Optimization",
-  //     "Code Review",
-  //     "Testing",
-  //   ],
-  //   icon: "⚡",
-  // },
-  // {
-  //   title: "Student",
-  //   company: "Attueyi Coding Academy",
-  //   duration: "Jan 2024 - Mar 2024",
-  //   location: "UNN Enugu",
-  //   description:
-  //     "Completed comprehensive frontend development curriculum covering modern web development technologies and best practices.",
-  //   highlights: [
-  //     "Researched and developed an AI-based prototype addressing real-world environmental challenges.",
-  //     "Attended expert-led mentorship sessions on data modeling, optimization, and project presentation.",
-  //     "Delivered a final project presentation to industry experts, incorporating iterative feedback.",
-  //     "Earned certifications from AICTE, Shell, and Edunet Foundation.",
-  //   ],
-  //   skills: [
-  //     "JavaScript (ES6+)",
-  //     "React.js",
-  //     "Tailwind CSS",
-  //     "Responsive Design",
-  //     "Team Collaboration",
-  //   ],
-  //   icon: "🎓",
-  // },
+  {
+    title: "Software Developer — Client Project",
+    company: "Pneumabreed International Academy",
+    duration: "Project Engagement",
+    location: "Remote",
+    description:
+      "Built and delivered an admissions-focused marketing site for a private school, working directly with school administrators to turn their enrollment process into a clear digital experience.",
+    highlights: [
+      "Implemented an age-banded admissions funnel with client-reviewed content and copy.",
+      "Wired up enquiry and application forms for real-time parent communication.",
+      "Delivered on a tight timeline ahead of the school's admissions season.",
+    ],
+    skills: ["React", "Vite", "React Router", "Tailwind CSS"],
+  },
+  {
+    title: "Software Developer — Client Project",
+    company: "RoutePay",
+    duration: "Project Engagement",
+    location: "Remote",
+    description:
+      "Contributed to the marketing and product site for a Nigerian fintech platform, coordinating closely with stakeholders to represent payments, billing, and lending products accurately.",
+    highlights: [
+      "Built responsive, high-conversion pages for personal, business, and government payment solutions.",
+      "Structured the developer-facing API portal section for a technical audience.",
+      "Worked within brand and compliance guidelines for a regulated fintech product.",
+    ],
+    skills: ["Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    title: "Software Developer — Client Project",
+    company: "Beate Synergy",
+    duration: "Project Engagement",
+    location: "Remote",
+    description:
+      "Delivered a corporate site for an oil & gas engineering firm, translating technical service offerings into a confident visual language for enterprise clients.",
+    highlights: [
+      "Built motion-driven interactions with Framer Motion to communicate precision and capability.",
+      "Structured service-pillar content — surface engineering, well testing, HPHT solutions — for a technical B2B audience.",
+      "Collaborated directly with the client on messaging and positioning.",
+    ],
+    skills: ["React", "Vite", "Framer Motion", "Tailwind CSS"],
+  },
+  {
+    title: "Software Developer — Client Project",
+    company: "Crafwell Engineering",
+    duration: "Project Engagement",
+    location: "Remote",
+    description:
+      "Built a corporate site for an API-certified precision machining and fabrication company, focused on communicating technical credibility to oil & gas sector clients.",
+    highlights: [
+      "Presented equipment lines, quality certifications, and safety commitments clearly for enterprise buyers.",
+      "Delivered a downloadable brochure/portfolio flow to support the client's sales follow-up.",
+      "Worked with the client's team to source and organize technical content.",
+    ],
+    skills: ["Next.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    title: "Software Developer — Client Project",
+    company: "Routelink VAS",
+    duration: "Project Engagement",
+    location: "Remote",
+    description:
+      "Delivered an enterprise Value Added Services portal, integrating REST APIs for billing and carrier services across mobile networks in Nigeria.",
+    highlights: [
+      "Built a full-stack portal connecting billing integrations with carrier services.",
+      "Designed the interface around a complex, multi-network data model.",
+      "Delivered a production-ready platform serving customers across Nigeria's biggest carriers.",
+    ],
+    skills: ["Next.js", "TypeScript", "Tailwind CSS", "REST API"],
+  },
+];
+
+const strengths = [
+  {
+    icon: <Puzzle size={24} strokeWidth={1.5} />,
+    title: "Problem-Solving",
+    description:
+      "Expert at debugging complex issues across the stack and implementing efficient, reliable solutions.",
+  },
+  {
+    icon: <Users size={24} strokeWidth={1.5} />,
+    title: "Collaboration",
+    description:
+      "Proven success in cross-functional teams using Agile methodologies.",
+  },
+  {
+    icon: <ShieldCheck size={24} strokeWidth={1.5} />,
+    title: "Quality Focus",
+    description:
+      "Committed to clean, maintainable code with comprehensive testing practices.",
+  },
+  {
+    icon: <Sparkles size={24} strokeWidth={1.5} />,
+    title: "Adaptability",
+    description:
+      "Quick learner staying current with emerging technologies and industry trends.",
+  },
 ];
 
 export default function Experience() {
+  const [[current, direction], setSlide] = useState<[number, number]>([0, 0]);
+
+  const paginate = (dir: number) => {
+    setSlide(([prev]) => {
+      const next = (prev + dir + experiences.length) % experiences.length;
+      return [next, dir];
+    });
+  };
+
+  const goTo = (index: number) => {
+    setSlide(([prev]) => [index, index > prev ? 1 : -1]);
+  };
+
+  const exp = experiences[current];
+
   return (
-    <section id="experience" className="py-24 px-6">
-      <div className="max-w-5xl mx-auto">
+    <section id="experience" className="py-32 md:py-48 px-6 md:px-20">
+      <div className="max-w-[1600px] mx-auto">
         {/* Section Label */}
-        <div className="text-center mb-4">
-          <p className="text-cyan-500 font-semibold text-sm tracking-widest uppercase">
-            Career Journey
-          </p>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-4 mb-16 md:mb-24"
+        >
+          <span className="text-xs font-medium text-[#888] uppercase tracking-[0.2em]">
+            Experience
+          </span>
+          <span className="flex-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
+        </motion.div>
 
         {/* Section Title */}
-        <h2 className="text-4xl md:text-6xl font-black text-center mb-4 dark:text-white text-gray-900">
-          Experience
-        </h2>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 md:mb-24"
+        >
+          <h2 className="font-display text-[clamp(2.5rem,5vw,6rem)] font-bold leading-[1] tracking-tight text-black dark:text-[#f5f5f5]">
+            Work
+            <br />
+            <span className="text-[#888]">Experience</span>
+          </h2>
 
-        {/* Underline */}
-        <div className="flex justify-center mb-12">
-          <div className="w-16 h-1 bg-cyan-500 rounded-full"></div>
-        </div>
-
-        {/* Experience Cards */}
-        <div className="space-y-6">
-          {experiences.map((exp, i) => (
-            <div
-              key={i}
-              className="card card-accent rounded-2xl transition-all duration-300 overflow-hidden"
+          {/* Carousel Controls */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => paginate(-1)}
+              aria-label="Previous experience"
+              className="w-11 h-11 rounded-full border border-black/[0.08] dark:border-white/[0.12] flex items-center justify-center text-black dark:text-[#f5f5f5] hover:border-accent hover:text-accent transition-colors cursor-pointer bg-transparent"
             >
-              {/* Card Content */}
-              <div className="p-8">
-                {/* Header with Icon */}
-                <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
-                  {/* Icon */}
-                  <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-xl flex items-center justify-center text-3xl flex-shrink-0">
-                    {exp.icon}
-                  </div>
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              onClick={() => paginate(1)}
+              aria-label="Next experience"
+              className="w-11 h-11 rounded-full border border-black/[0.08] dark:border-white/[0.12] flex items-center justify-center text-black dark:text-[#f5f5f5] hover:border-accent hover:text-accent transition-colors cursor-pointer bg-transparent"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </motion.div>
 
-                  {/* Title and Meta */}
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold dark:text-white mb-3">
+        {/* Experience Carousel */}
+        <div className="accordion-item overflow-hidden relative">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={current}
+              custom={direction}
+              initial={{ opacity: 0, x: direction >= 0 ? 40 : -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction >= 0 ? -40 : 40 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="py-8 md:py-10"
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div className="flex items-baseline gap-6">
+                  <span className="text-xs text-[#888] font-mono tabular-nums">
+                    0{current + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-display text-xl md:text-2xl font-bold tracking-tight text-black dark:text-[#f5f5f5]">
                       {exp.title}
                     </h3>
-
-                    {/* Location and Duration */}
-                    <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
-                      <div className="flex items-center gap-1">
-                        <MapPin size={16} className="text-cyan-500" />
-                        {exp.location}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Calendar size={16} className="text-cyan-500" />
-                        {exp.duration}
-                      </div>
-                    </div>
+                    <p className="text-sm text-[#888] mt-1">{exp.company}</p>
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
+                <div className="flex items-center gap-6">
+                  <span className="text-xs text-[#888] font-mono">
+                    {exp.duration}
+                  </span>
+                  <span className="text-xs text-[#888]">{exp.location}</span>
+                </div>
+              </div>
+
+              <div className="pl-0 md:pl-[calc(1.5rem+24px)]">
+                <p className="text-[#888] text-sm leading-relaxed mb-6 max-w-2xl">
                   {exp.description}
                 </p>
 
                 {/* Highlights */}
-                <div className="mb-8 space-y-3">
-                  {exp.highlights.map((highlight, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <CheckCircle
-                        size={20}
-                        className="text-cyan-500 flex-shrink-0 mt-0.5"
-                      />
-                      <span className="text-gray-700 dark:text-gray-200">
-                        {highlight}
+                <div className="space-y-3 mb-8">
+                  {exp.highlights.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-4 text-sm">
+                      <span className="text-[#888] mt-0.5 flex-shrink-0">
+                        —
+                      </span>
+                      <span className="text-black/80 dark:text-white/80 leading-snug">
+                        {item}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                {/* Skills Section */}
-                <div>
-                  <div className="flex items-center gap-2 mb-4">
-                    <Lightbulb size={18} className="text-cyan-500" />
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
-                      Skills Gained
-                    </h4>
-                  </div>
-
-                  <div className="flex flex-wrap gap-3">
-                    {exp.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-4 py-2 bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-400 text-sm font-semibold rounded-full"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                {/* Skills */}
+                <div className="flex flex-wrap gap-3">
+                  {exp.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="px-3 py-1.5 rounded-full border border-black/[0.08] dark:border-white/[0.08] text-[11px] font-medium text-[#888] uppercase tracking-wider"
+                    >
+                      {skill}
+                    </span>
+                  ))}
                 </div>
               </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-              {/* Right Side Accent */}
-              <div className="h-2 bg-gradient-to-r from-cyan-400 to-cyan-600"></div>
-            </div>
+        {/* Dot Indicators */}
+        <div className="flex items-center gap-2 mt-8">
+          {experiences.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goTo(index)}
+              aria-label={`Go to experience ${index + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer bg-transparent border-none p-0 ${
+                index === current
+                  ? "w-8 bg-accent"
+                  : "w-1.5 bg-black/[0.12] dark:bg-white/[0.16] hover:bg-black/[0.24] dark:hover:bg-white/[0.3]"
+              }`}
+            />
           ))}
+        </div>
+
+        {/* Professional Strengths */}
+        <div className="mt-24 md:mt-32">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-4 mb-10 md:mb-14"
+          >
+            <span className="text-xs font-medium text-[#888] uppercase tracking-[0.2em]">
+              Professional Strengths
+            </span>
+            <span className="flex-1 h-[1px] bg-black/[0.08] dark:bg-white/[0.08]" />
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {strengths.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="p-7 rounded-2xl bg-white dark:bg-[#141414] border border-black/[0.06] dark:border-white/[0.06] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_8px_24px_-8px_rgba(0,0,0,0.04)] dark:shadow-none"
+              >
+                <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-5">
+                  {item.icon}
+                </div>
+                <h3 className="font-display text-base font-bold text-black dark:text-[#f5f5f5] mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-[#888] leading-relaxed">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,10 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CursorDot() {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
+  const pos = useRef({ x: -100, y: -100 });
+  const target = useRef({ x: -100, y: -100 });
+  const rafId = useRef<number>(0);
+  const [cursorText, setCursorText] = useState("");
+  const [variant, setVariant] = useState<"default" | "hover" | "text" | "hidden">("default");
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
-    // Detect touch screens or mobile viewports
     const isTouchDevice =
       typeof window !== "undefined" &&
       ("ontouchstart" in window ||
@@ -13,74 +21,70 @@ export default function CursorDot() {
 
     if (isTouchDevice) return;
 
-    // Create custom cursor dot
-    const dot = document.createElement("div");
-    dot.id = "custom-cursor-dot";
-    dot.style.position = "fixed";
-    dot.style.width = "12px";
-    dot.style.height = "12px";
-    dot.style.borderRadius = "50%";
-    dot.style.backgroundColor = "#6366f1";
-    dot.style.pointerEvents = "none";
-    dot.style.zIndex = "99999";
-    dot.style.boxShadow = "0 0 15px rgba(99, 102, 241, 0.8)";
-    dot.style.top = "-10px";
-    dot.style.left = "-10px";
-    dot.style.display = "block";
-    document.body.appendChild(dot);
+    setIsVisible(true);
 
-    let mouseX = 0;
-    let mouseY = 0;
-    let dotX = 0;
-    let dotY = 0;
-    let animationFrameId: number | null = null;
+    const onMouseMove = (e: MouseEvent) => {
+      target.current = { x: e.clientX, y: e.clientY };
 
-    // Smoothing factor (lower = slower, higher = faster) - adjust between 0.05 to 0.3
-    const smoothing = 0.1;
+      const el = e.target as HTMLElement | null;
+      if (!el) return;
 
-    const updateDotPosition = () => {
-      // Interpolate between current dot position and mouse position
-      dotX += (mouseX - dotX) * smoothing;
-      dotY += (mouseY - dotY) * smoothing;
-      
-      dot.style.left = (dotX - 6) + "px";
-      dot.style.top = (dotY - 6) + "px";
-      
-      animationFrameId = requestAnimationFrame(updateDotPosition);
+      const interactive = el.closest(
+        "a, button, [data-cursor], [data-cursor-text]"
+      ) as HTMLElement | null;
+
+      if (interactive) {
+        const text = interactive.getAttribute("data-cursor-text");
+        if (text) {
+          setCursorText(text);
+          setVariant("text");
+        } else {
+          setCursorText("");
+          setVariant("hover");
+        }
+      } else {
+        setCursorText("");
+        setVariant("default");
+      }
     };
 
-    const move = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
+    const animate = () => {
+      pos.current.x += (target.current.x - pos.current.x) * 0.15;
+      pos.current.y += (target.current.y - pos.current.y) * 0.15;
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+      }
+
+      rafId.current = requestAnimationFrame(animate);
     };
 
-    const handleMouseDown = () => {
-      dot.style.transform = "scale(0.6)";
-    };
-
-    const handleMouseUp = () => {
-      dot.style.transform = "scale(1)";
-    };
-
-    // Start animation loop
-    animationFrameId = requestAnimationFrame(updateDotPosition);
-
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mousemove", onMouseMove);
+    rafId.current = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
-      if (dot && dot.parentNode) {
-        dot.parentNode.removeChild(dot);
-      }
+      window.removeEventListener("mousemove", onMouseMove);
+      cancelAnimationFrame(rafId.current);
     };
   }, []);
 
-  return null;
+  if (!isVisible) return null;
+
+  const classNames = [
+    "cb-cursor",
+    variant === "hover" && "is-hover",
+    variant === "text" && "is-text",
+    variant === "hidden" && "is-hidden",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <div ref={cursorRef} className={classNames}>
+      <div className="cb-cursor-inner" />
+      <div ref={textRef} className="cb-cursor-text">
+        {cursorText}
+      </div>
+    </div>
+  );
 }

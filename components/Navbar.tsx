@@ -1,375 +1,202 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Github, Linkedin, Twitter, Moon, Sun, Menu, X, Mail } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Sun, Moon } from "lucide-react";
+import Magnetic from "./Magnetic";
+import { useTheme } from "./ThemeProvider";
 
-export default function Portfolio() {
-  const [isDark, setIsDark] = useState(false);
-  const [active, setActive] = useState<string>("home");
+const navLinks = [
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Skills", href: "#skills" },
+  { name: "Contact", href: "#contact" },
+];
+
+export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const handleScroll = () => {
-    const sections = [
-      "home",
-      "projects",
-      
-      "experience",
-      
-      "skills",
-    ];
-    let current = "home";
-    for (const id of sections) {
-      const section = document.getElementById(id);
-      if (section && window.scrollY >= section.offsetTop - 200) current = id;
-    }
-    setActive(current);
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    // Initialize theme from localStorage, default to light mode
-    const storedTheme =
-      typeof window !== "undefined" ? localStorage.getItem("theme") : null;
-    const shouldUseDark = storedTheme === "dark";
-    setIsDark(shouldUseDark);
-    if (shouldUseDark) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
-    // Reflect theme on root element and persist
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
     } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      document.body.style.overflow = "";
     }
-  }, [isDark]);
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMenuOpen]);
 
   return (
-    <div className={isDark ? "dark" : ""}>
-      <div
-        className={`min-h-screen transition-colors duration-300 ${
-          isDark ? "bg-gray-950 text-white" : "bg-white text-gray-900"
+    <>
+      {/* Desktop Navbar */}
+      <header
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+          isScrolled
+            ? "backdrop-blur-md bg-white/90 dark:bg-[#0a0a0a]/90 border-b border-black/[0.04] dark:border-white/[0.06]"
+            : "bg-transparent"
         }`}
       >
-        {/* Navbar */}
-        <header
-          className={`fixed top-0 left-0 w-full backdrop-blur-md z-50 transition-colors duration-300 ${
-            isDark
-              ? "bg-gray-900/80 border-b border-gray-800"
-              : "bg-white/80 border-b border-gray-100"
-          }`}
-        >
-          <nav className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-            {/* Logo */}
-            <div className="font-bold text-lg tracking-tight whitespace-nowrap">Ekezie C.</div>
-
-            {/* Desktop Nav Links */}
-            <div
-              className={`hidden md:flex gap-8 text-sm font-medium ${
-                isDark ? "text-gray-400" : "text-gray-600"
-              }`}
+        <div className="max-w-[1600px] mx-auto px-6 md:px-20 h-20 flex items-center justify-between">
+          {/* Logo */}
+          <Magnetic strength={0.2}>
+            <a
+              href="#home"
+              className="font-display text-xl font-bold tracking-tight text-black dark:text-[#f5f5f5] no-underline"
             >
-              <a
-                href="#about"
-                className={
-                  active === "about"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                About
-              </a>
-              <a
-                href="#projects"
-                className={
-                  active === "projects"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                Projects
-              </a>
-              <a
-                href="#experience"
-                className={
-                  active === "experience"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                Experience
-              </a>
-              <a
-                href="#skills"
-                className={
-                  active === "skills"
-                    ? isDark
-                      ? "text-white"
-                      : "text-gray-900"
-                    : "hover:opacity-70 transition"
-                }
-              >
-                Skills
-              </a>
-            </div>
+              Ekezie<span className="text-[#888]">.</span>dev
+            </a>
+          </Magnetic>
 
-            {/* Desktop Right Section */}
-            <div className="hidden md:flex items-center gap-4">
-              {/* Social Icons */}
-              <div className="flex gap-4 text-gray-600 dark:text-gray-400">
-                <a 
-                  href="#" 
-                  className="hover:opacity-70 transition"
-                  aria-label="Twitter"
+          {/* Desktop Nav Links */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Magnetic key={link.name} strength={0.12}>
+                <a
+                  href={link.href}
+                  className="nav-text-reveal text-sm font-medium text-black dark:text-[#f5f5f5] hover:text-accent no-underline transition-colors"
                 >
-                  <Twitter size={20} />
+                  <span data-text={link.name}>{link.name}</span>
                 </a>
-                <a 
-                  href="https://github.com/Chinonyerem661" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-70 transition"
-                  aria-label="GitHub"
-                >
-                  <Github size={20} />
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/ekezie-chinonyerem/" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-70 transition"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin size={20} />
-                </a>
-              </div>
+              </Magnetic>
+            ))}
+          </nav>
 
-              {/* Theme Toggle */}
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-4">
+            <Magnetic strength={0.2}>
               <button
-                onClick={() => setIsDark(!isDark)}
-                className={`p-2 rounded-full transition-colors ${
-                  isDark
-                    ? "bg-gray-800 text-yellow-400"
-                    : "bg-gray-100 text-gray-600"
-                }`}
-                aria-label="Toggle Theme"
+                onClick={toggleTheme}
+                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-black/[0.08] dark:border-white/[0.12] text-accent bg-transparent cursor-pointer transition-colors hover:border-accent"
               >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
               </button>
-
-              {/* Resume Button */}
+            </Magnetic>
+            <Magnetic strength={0.2}>
               <a
                 href="https://drive.google.com/file/d/1-idjrj-tbml9mp5WZcuxyOnKRSPnuLmq/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition"
+                className="cb-btn cb-btn-fill text-xs tracking-wider uppercase"
+                data-cursor-text="CV"
               >
-                Resume
+                <span className="cb-btn-label">Resume</span>
               </a>
-            </div>
+            </Magnetic>
+          </div>
 
-            {/* Mobile Header Options */}
-            <div className="flex md:hidden items-center gap-2">
-              {/* Mobile Theme Toggle */}
-              <button
-                onClick={() => setIsDark(!isDark)}
-                className={`p-2 rounded-full transition-colors ${
-                  isDark
-                    ? "bg-gray-800 text-yellow-400"
-                    : "bg-gray-100 text-gray-600"
-                }`}
-                aria-label="Toggle Theme"
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </button>
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-[5px] z-[200] bg-transparent border-none cursor-pointer"
+            aria-label="Toggle Menu"
+            style={{ mixBlendMode: "exclusion" }}
+          >
+            <span
+              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+                isMenuOpen ? "rotate-45 translate-y-[7px]" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+                isMenuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block w-6 h-[2px] bg-white transition-all duration-300 ${
+                isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""
+              }`}
+            />
+          </button>
+        </div>
+      </header>
 
-              {/* Mobile Hamburger Trigger */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`p-2 rounded-lg transition-colors ${
-                  isDark
-                    ? "text-gray-300 hover:bg-gray-800"
-                    : "text-gray-600 hover:bg-gray-100"
-                }`}
-                aria-label="Toggle Menu"
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </nav>
-
-          {/* Mobile Drawer Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden fixed top-[60px] left-0 w-full h-[calc(100vh-60px)] z-40 bg-white dark:bg-gray-950 transition-all duration-300 border-t border-gray-100 dark:border-gray-800 overflow-y-auto">
-              <div className="flex flex-col items-center gap-6 py-12 px-6">
-                {/* Mobile Nav Links */}
-                <div className="flex flex-col items-center gap-6 text-lg font-semibold w-full">
+      {/* Mobile Full-Screen Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
+            animate={{ clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
+            exit={{ clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 z-[100] bg-white dark:bg-[#0a0a0a] flex flex-col justify-center px-8"
+          >
+            <nav className="flex flex-col gap-2">
+              {navLinks.map((link, index) => (
+                <motion.div
+                  key={link.name}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.15 + index * 0.06,
+                    duration: 0.5,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                >
                   <a
-                    href="#about"
+                    href={link.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
-                      active === "about"
-                        ? "text-cyan-500 font-bold"
-                        : isDark
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
+                    className="block py-3 font-display text-[3rem] font-bold tracking-tight text-black dark:text-[#f5f5f5] no-underline leading-none"
                   >
-                    About
+                    {link.name}
                   </a>
-                  <a
-                    href="#projects"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
-                      active === "projects"
-                        ? "text-cyan-500 font-bold"
-                        : isDark
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    Projects
-                  </a>
-                  <a
-                    href="#experience"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
-                      active === "experience"
-                        ? "text-cyan-500 font-bold"
-                        : isDark
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    Experience
-                  </a>
-                  <a
-                    href="#skills"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`w-full text-center py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition ${
-                      active === "skills"
-                        ? "text-cyan-500 font-bold"
-                        : isDark
-                        ? "text-gray-300"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    Skills
-                  </a>
-                </div>
+                </motion.div>
+              ))}
+            </nav>
 
-                <div className="w-full h-[1px] bg-gray-200 dark:bg-gray-800 my-4"></div>
-
-                {/* Mobile Social Links */}
-                <div className="flex gap-6 text-gray-600 dark:text-gray-400">
-                  <a
-                    href="https://github.com/Chinonyerem661"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
-                    aria-label="GitHub"
-                  >
-                    <Github size={22} />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/ekezie-chinonyerem/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin size={22} />
-                  </a>
-                  <a
-                    href="mailto:kezienonye@gmail.com"
-                    className="hover:text-cyan-500 transition p-3 bg-gray-100 dark:bg-gray-900 rounded-full"
-                    aria-label="Email"
-                  >
-                    <Mail size={22} />
-                  </a>
-                </div>
-
-                {/* Mobile Resume Button */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.4 }}
+              className="mt-16 pt-8 border-t border-black/[0.08] dark:border-white/[0.08] flex items-center justify-between"
+            >
+              <div className="flex gap-8 text-sm text-[#888]">
                 <a
-                  href="https://drive.google.com/file/d/1-idjrj-tbml9mp5WZcuxyOnKRSPnuLmq/view?usp=sharing"
+                  href="https://github.com/Chinonyerem661"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full max-w-xs text-center py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-full font-semibold hover:shadow-lg transition mt-4"
+                  className="link-underline no-underline text-[#888] hover:text-black dark:hover:text-[#f5f5f5] transition-colors"
                 >
-                  Resume
+                  GitHub
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/ekezie-chinonyerem/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline no-underline text-[#888] hover:text-black dark:hover:text-[#f5f5f5] transition-colors"
+                >
+                  LinkedIn
+                </a>
+                <a
+                  href="mailto:kezienonye@gmail.com"
+                  className="link-underline no-underline text-[#888] hover:text-black dark:hover:text-[#f5f5f5] transition-colors"
+                >
+                  Email
                 </a>
               </div>
-            </div>
-          )}
-        </header>
 
-        {/* Hero Section */}
-        <section id="home" className="pt-40 pb-20 px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Decorative Dot */}
-            <div
-              className={`flex justify-end mb-12 ${
-                isDark ? "text-cyan-400" : "text-red-500"
-              }`}
-            >
-              <div className="w-4 h-4 rounded-full bg-current"></div>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="text-6xl md:text-7xl font-black leading-tight mb-8 tracking-tight text-gray-900 dark:text-white">
-              Frontend<br />
-              Developer.
-            </h1>
-
-            {/* Subheading */}
-            <p
-              className={`text-lg md:text-xl mb-12 leading-relaxed ${
-                isDark ? "text-gray-200" : "text-gray-600"
-              }`}
-            >
-              I design and build modern, responsive, and scalable web
-              applications
-              <br />
-              that bridge creativity and functionality.
-            </p>
-
-            {/* CTA Button */}
-            <a
-              href="#projects"
-              className={`px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-lg inline-block ${
-                isDark
-                  ? "bg-white text-gray-900 hover:bg-gray-100"
-                  : "bg-gray-900 text-white hover:bg-gray-800"
-              }`}
-            >
-              View My Work →
-            </a>
-
-            {/* Decorative Dot */}
-            <div
-              className={`flex justify-end mt-20 ${
-                isDark ? "text-cyan-400" : ""
-              }`}
-            >
-              <div className="w-4 h-4 rounded-full bg-cyan-400"></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
+              <button
+                onClick={toggleTheme}
+                aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                className="w-10 h-10 flex items-center justify-center rounded-full border border-black/[0.08] dark:border-white/[0.12] text-accent bg-transparent cursor-pointer"
+              >
+                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
