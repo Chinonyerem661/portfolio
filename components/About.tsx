@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 
 const services = [
@@ -174,10 +173,6 @@ function ServiceCard({
                 <p className="max-w-md md:max-w-lg text-sm md:text-base text-white/60 leading-relaxed">
                   {service.description}
                 </p>
-                <div className="flex items-center gap-2 text-white hover:text-accent transition-colors text-sm font-medium mt-6 w-fit cursor-pointer">
-                  <span>Explore</span>
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
                 <p className="text-[11px] text-white/30 font-medium uppercase tracking-wider mt-6">
                   {service.tags.join(" · ")}
                 </p>

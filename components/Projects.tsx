@@ -15,31 +15,13 @@ interface Project {
 
 const projectsData: Project[] = [
   {
-    title: "Pneumabreed International Academy",
-    category: "Frontend",
-    description:
-      "Digital presence for a Christian private school in Port Harcourt — clean information architecture and admissions content built for parents and prospective students.",
-    tags: ["React", "Vite", "React Router", "Tailwind CSS"],
-    liveUrl: "https://pneumabreed-academy.vercel.app/",
-    image: "/project-pneumabreed.webp",
-  },
-  {
-    title: "CINEMIX",
-    category: "Frontend",
-    description:
-      "A modern movie discovery application with responsive grid layouts, search functionality, and real-time data from the TMDb API.",
-    tags: ["React", "JavaScript", "Tailwind CSS", "TMDb API"],
-    liveUrl: "https://chinonyerem661.github.io/Movies-site/",
-    image: "/project-cinemix.webp",
-  },
-  {
-    title: "Routelink VAS",
+    title: "RoutePay",
     category: "Full Stack",
     description:
-      "Enterprise Value Added Services portal delivering billing integrations and carrier services for mobile networks across Nigeria.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "REST API"],
-    liveUrl: "https://routelink-vas.vercel.app/",
-    image: "/project-routelink.webp",
+      "A Nigerian fintech platform for payments, bill settlement, and micro-lending, built for clarity, trust, and fast, reliable transaction flows.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    liveUrl: "https://routepay.com/",
+    image: "/project-routepay.webp",
   },
   {
     title: "Crafwell Engineering",
@@ -51,6 +33,24 @@ const projectsData: Project[] = [
     image: "/project-crafwell.webp",
   },
   {
+    title: "Routelink VAS",
+    category: "Full Stack",
+    description:
+      "Enterprise Value Added Services portal delivering billing integrations and carrier services for mobile networks across Nigeria.",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "REST API"],
+    liveUrl: "https://routelink-vas.vercel.app/",
+    image: "/project-routelink.webp",
+  },
+  {
+    title: "CINEMIX",
+    category: "Frontend",
+    description:
+      "A modern movie discovery application with responsive grid layouts, search functionality, and real-time data from the TMDb API.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "TMDb API"],
+    liveUrl: "https://chinonyerem661.github.io/Movies-site/",
+    image: "/project-cinemix.webp",
+  },
+  {
     title: "Beate Synergy",
     category: "Frontend",
     description:
@@ -60,13 +60,13 @@ const projectsData: Project[] = [
     image: "/project-beatesynergy.webp",
   },
   {
-    title: "RoutePay",
-    category: "Full Stack",
+    title: "Pneumabreed International Academy",
+    category: "Frontend",
     description:
-      "A Nigerian fintech platform for payments, bill settlement, and micro-lending, built for clarity, trust, and fast, reliable transaction flows.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
-    liveUrl: "https://routepay.com/",
-    image: "/project-routepay.webp",
+      "Digital presence for a Christian private school in Port Harcourt — clean information architecture and admissions content built for parents and prospective students.",
+    tags: ["React", "Vite", "React Router", "Tailwind CSS"],
+    liveUrl: "https://pneumabreed-academy.vercel.app/",
+    image: "/project-pneumabreed.webp",
   },
 ];
 
@@ -117,8 +117,11 @@ export default function Projects() {
               className={index % 2 !== 0 ? "md:mt-24" : ""}
             >
               {/* Image Container — fixed aspect ratio, no fill prop */}
-              <div
-                className="relative w-full overflow-hidden rounded-2xl bg-[#f5f5f5] dark:bg-[#141414] group cursor-pointer"
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative block w-full overflow-hidden rounded-2xl bg-[#f5f5f5] dark:bg-[#141414] group cursor-pointer"
                 style={{ aspectRatio: "4 / 3" }}
                 data-cursor-text="VIEW"
               >
@@ -130,7 +133,7 @@ export default function Projects() {
                   className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-              </div>
+              </a>
 
               {/* Caption */}
               <div className="mt-6 md:mt-8">
